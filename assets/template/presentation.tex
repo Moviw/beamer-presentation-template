@@ -1,0 +1,158 @@
+% 经典 Beamer 模板：Madrid 内置主题 + 默认配色，只用标准 pdflatex 和 TeX Live 自带的包。
+% 复制整个 template/ 目录后，改标题区和 frame 内容即可；版式、页脚、导航条都不要动。
+\documentclass[aspectratio=169,10pt]{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{amssymb}
+
+% ---- 常用宏 -------------------------------------------------------
+\newcommand{\tbd}{\textcolor{gray}{TBD}}                            % 还没出的结果
+\newcommand{\sd}[1]{{\scriptsize\textcolor{gray}{$\pm$#1}}}         % 标准差
+\newcommand{\ok}{\textcolor{green!50!black}{done}}
+\newcommand{\pend}{\textcolor{orange!80!black}{pending}}
+\newenvironment{takeaway}{\begin{exampleblock}{Takeaway}}{\end{exampleblock}}   % 只放在关键页
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}           % 左对齐定宽列（长文字表格用）
+
+% ---- 标题区：副标题只放论文 / 报告副标题，汇报性质写在日期行 -----------
+\title[Short Title]{Full Title of the Talk}
+\subtitle{One-Line Subtitle}
+\author[A.~Author]{Author Name}
+\institute[Univ.]{Institution}
+\date[Jan 1, 2027]{Progress Report\\[4pt] January 1, 2027}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% Outline：两列，每个 section 下列出 subsection（每个 frame 前放一个 \subsection）
+{\addtobeamertemplate{section in toc}{\vspace{4pt}}{}
+\begin{frame}{Outline}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \tableofcontents[sections={1-2}]
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \tableofcontents[sections={3-4}]
+    \end{column}
+  \end{columns}
+\end{frame}
+}
+
+% ------------------------------------------------------------------
+\section{Motivation}
+
+\subsection{Problem}
+\begin{frame}{Problem Statement}
+  \begin{itemize}
+    \item One idea per bullet, three to five bullets per slide
+    \item Explain a technical term in plain words the first time it appears
+    \item Titles are statements or plain topic names, not questions
+  \end{itemize}
+  \begin{takeaway}
+    One sentence the audience should remember from this section.
+  \end{takeaway}
+\end{frame}
+
+\subsection{Overview}
+\begin{frame}{Contributions and Evidence}
+  \centering\small
+  \begin{tabular}{@{}L{0.32\textwidth}L{0.44\textwidth}L{0.17\textwidth}@{}}
+    \toprule
+    Contribution & Evidence & Status \\
+    \midrule
+    \addlinespace (1) First claim & experiment or analysis that supports it & \ok \\
+    \addlinespace (2) Second claim & experiment or analysis that supports it & \pend{} (date) \\
+    \bottomrule
+  \end{tabular}
+\end{frame}
+
+% ------------------------------------------------------------------
+\section{Results}
+
+\subsection{Main table}
+\begin{frame}{Main Results}
+  \centering\small
+  \begin{tabular}{@{}lcccc@{}}
+    \toprule
+    & \multicolumn{2}{c}{Dataset A} & \multicolumn{2}{c}{Dataset B} \\
+    \cmidrule(lr){2-3}\cmidrule(lr){4-5}
+    Model & metric 1 & metric 2 & metric 1 & metric 2 \\
+    \midrule
+    Baseline & 35.5\sd{0.8} & 84.1 & 24.0\sd{0.7} & 83.8 \\
+    Ours & \textbf{37.7}\sd{0.8} & \textbf{76.6} & \tbd & \tbd \\
+    \bottomrule
+  \end{tabular}\\[2pt]
+  {\scriptsize Footnote: what the metric is, what $\pm$ means, how many questions.}
+  \begin{takeaway}
+    The single comparison that matters, with its number.
+  \end{takeaway}
+\end{frame}
+
+\subsection{Figure}
+\begin{frame}{Figure with Explanation}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \centering
+      % \includegraphics[width=\linewidth]{fig/figure.pdf}
+      \fbox{\parbox[c][0.5\textheight][c]{0.9\linewidth}{\centering figure: fig/figure.pdf}}
+    \end{column}
+    \begin{column}{0.43\textwidth}
+      \small
+      \begin{itemize}
+        \item What the axes or panels show
+        \item The one pattern to notice
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ------------------------------------------------------------------
+\section{Plan}
+
+\subsection{Timeline}
+\begin{frame}{Remaining Work and Timeline}
+  \begin{columns}[T]
+    \begin{column}{0.36\textwidth}
+      \small
+      \textbf{Work}
+      \begin{itemize}
+        \item First open item
+        \item Second open item
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.62\textwidth}
+      \small
+      \textbf{Timeline} (JST)\\[2pt]
+      \footnotesize
+      \begin{tabular}{@{}ll@{}}
+        \toprule
+        Date & Item \\
+        \midrule
+        Jan 1--3 & one line per period \\
+        Jan 10 20:59 & \textbf{deadline} \\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ------------------------------------------------------------------
+\section{Summary}
+
+\subsection{Summary}
+\begin{frame}{Summary}
+  \begin{enumerate}
+    \item First finding, with its key number
+    \item Second finding
+    \item What is still open
+  \end{enumerate}
+\end{frame}
+
+\end{document}
